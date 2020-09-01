@@ -21,7 +21,12 @@ function currentTime() {
   let bar = document.querySelector("div.clock-progress-bar");
   bar.style.width = (percentSeconds * 14) + "rem"
   // random hexidecimal generator
-
+  let clock = document.querySelector("div.clock");
+  const setBg = () => {
+    var randomColor = Math.floor((Math.random(255)*16777215)).toString(16);
+    clock.style.background = "#" + randomColor;
+  }
+  setBg();
 }
 currentTime();
 setInterval(currentTime, 1000);
