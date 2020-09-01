@@ -33,6 +33,6 @@
 
   }
   setBg();
-  setInterval(setBg, 1000);
   currentTime();
   setInterval(currentTime, 1000);
+  setInterval(setBg, 1000);
