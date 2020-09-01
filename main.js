@@ -15,6 +15,6 @@ function currentTime() {
 
   document.getElementByClassName("clock").innerText = time;
 
-  setInterval(currentTime, 1000);
+  set(currentTime, 1000);
 }
 currentTime();
