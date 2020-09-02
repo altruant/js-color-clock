@@ -23,9 +23,14 @@ function currentTime() {
   // random hexidecimal generator
 function setBg () {
   const clock = document.querySelector("div.clock");
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  console.log("#" + randomColor);
-  return clock.style.background = "#" + randomColor;
+  const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+  console.log(randomColor);
+  clock.style.background = randomColor;
+  function hover() {
+    document.querySelector("div.clock-display").addEventListener("mouseover", function(){
+      document.querySelector("div.clock-display").innerHTML = randomColor
+    });
+  } hover();
 }
 //call the functions
 setBg();
