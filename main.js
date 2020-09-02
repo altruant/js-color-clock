@@ -1,40 +1,44 @@
+let isHover = false
+const $clock = document.querySelector(".clock");
+const $display = document.querySelector(".clock-display")
+const $bar = document.querySelector(".clock-progress-bar")
+
+$display.addEventListener("mouseenter", function() {
+  isHover = true;
+});
+
+$clock.addEventListener("mouseleave", function() {
+  isHover = false;
+});
+
 function currentTime() {
-  // creating a date constant to reference
   const date = new Date();
-  // hours, minutes, seconds initialized to get the current time
+  console.log(date);
   let hours = date.getHours()
   let minutes = date.getMinutes();
   let seconds = date.getSeconds();
-  const percentSeconds = seconds/60;
-  hours = (hours > 12) ? hours - 12: hours; //converting return of 13-24 hrs to standard 12hr time
-  hours = (hours == 0) ? 12 : hours; //converting midnight to 12 midnight
-  hours = (hours < 10 ? "0": "") + hours; //appending a 0 in front of hours less than 10
-  minutes = (minutes < 10 ? "0": "") + minutes; //appending a 0 in front of minutes less than 10
-  seconds = (seconds < 10 ? "0": "") + seconds; //appending a 0 in front of seconds less than 10
-  time = hours + ":" + minutes + ":" + seconds; //organizing time for display
-  document.querySelector("div.clock-display").innerHTML = time; //targeting the clock element to
-  console.log(time);
+
+  let hexHours = ("0" + hours.toString(16)).slice(-2);
+  let hexMinutes = ("0" + minutes.toString(16)).slice(-2);
+  let hexSeconds =  ("0" + seconds.toString(16)).slice(-2);
+
+  hours = ("0" + hours).slice(-2);
+  minutes = ("0" + minutes).slice(-2);
+  seconds = ("0" + seconds).slice(-2);
+
+  console.log(`#${hexHours}:${hexMinutes}:${hexSeconds}`)
+
+  if(isHover) {
+    $display.textContent = `#${hexHours}:${hexMinutes}:${hexSeconds}`;
+  } else {
+    $display.textContent = `${hours}:${minutes}:${seconds}`;
+  }
+
 
   // progress bar width
+  const percentSeconds = date.getSeconds() / 60;
   console.log(percentSeconds)
   let bar = document.querySelector("div.clock-progress-bar");
-  bar.style.width = (percentSeconds * 14) + "rem"
-}
-  // random hexidecimal generator
-function setBg () {
-  const clock = document.querySelector("div.clock");
-  const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-  console.log(randomColor);
-  clock.style.background = randomColor;
-  function hover() {
-    document.querySelector("div.clock-display").addEventListener("mouseover", function(){
-      document.querySelector("div.clock-display").innerHTML = randomColor
-    });
-  } hover();
-}
-//call the functions
-setBg();
-currentTime();
-//loop the functions
-setInterval(currentTime, 1000);
-setInterval(setBg, 1000);
+  bar.style.width = (percentSeconds * 14) + "rem";
+  $clock.style.background = `#${hexHours}${hexMinutes}${hexSeconds}`;
+} setInterval(currentTime, 1000);
